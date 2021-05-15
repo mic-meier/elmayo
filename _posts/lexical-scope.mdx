@@ -1,0 +1,150 @@
+---
+slug: 'lexical-scope'
+title: 'Lexical Scope in JS - The Basics'
+date: '2020-11-19'
+tagline: 'How does JS know which variables are accessible by any given statement, and how does it handle two variables of the same name?'
+---
+
+<BlogHeader title="Lexical Scope in JS - The Basics" date="2020-11-19" />
+
+<BlogImage
+  url="https://images.unsplash.com/photo-1516867155773-0a95d01e4b77?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+  alt="scope"
+/>
+
+When writing a computer program it is important to understand which variables are accessible by any given statement. But how do you, or the program, know which variables are accessible? The answer is scope.
+
+### How scope is determined
+
+JavaScript is parsed/compiled **before** code execution begins. During this compilation phase, scope and which variables belong to which scope (scope structure) is determined. The resulting scope structure is generally unaffected by runtime conditions. At runtime, the respective scope is created each time it needs to run. The technical term for scope that is determined at compile time is **lexical scope**; it is controlled entirely by the placement of functions, blocks, and variable declarations in relation to one another.
+
+Scope can be thought of as buckets of different colors; with a unique bucket for each scope. Inside these buckets we can store marbles (variables/identifiers) of the same color as the bucket.
+
+In this example program we would create three colored buckets:
+
+```js
+// outer/global scope: RED
+
+const heroes = [
+  {id: 1, name: 'Batman', identity: 'Bruce Wayne'},
+  {id: 2, name: 'Robin', identity: 'Dick Grayson'},
+  {id: 3, name; 'Catwoman', identity: 'Selina Kyle'}
+]
+
+function getHeroName(heroID) {
+  // function scope: BLUE
+
+  for (let hero of heroes) {
+    // LOOP SCOPE: GREEN
+
+    if (hero.id === heroID) {
+      return hero.name
+    }
+  }
+}
+
+const nextHero = getHeroName(1)
+
+console.log(nextHero)
+// Batman
+```
+
+1. The RED bucket encompasses the global scope, which holds three identifiers/variables: `heroes`, `getHeroName`, and `nextHero`
+
+2. The BLUE bucket encompasses the scope of the function `getHeroName(..)`, which holds just one identifier/variable: the parameter `heroID`
+
+3. The GREEN bucket encompasses the scope of the `for`-loop, which holds just one identifier/variable: `hero`
+
+_**Note** that `id`, `name`, and `log` are all properties, not variables._
+
+In the above example, the GREEN bucket is completely nested in the BLUE bucket, which itself is nested in the RED bucket. Scopes can nest inside each other to any depth.
+
+References to variables/identifiers are allowed as long as there's a matching declaration either in the current scope or in any scope outside/above the current scope. References to variables declared in inner/lower scope are not allowed.
+
+An expression in our RED bucket has only access to red marbles (variables/identifiers), but **not** BLUE or GREEN marbles. Expressions in the BLUE bucket can reference BLUE and RED marbles, while expressions in the GREEN bucket can reference all the marbles.
+
+```js
+// OK
+const ok = "I'm OK";
+
+function isOK() {
+  console.log(ok);
+}
+
+isOK(); // I'm OK
+
+// Not OK
+function isNotOK() {
+  console.log(notOK);
+  if (true) {
+    const notOK = "I'm not OK";
+  }
+}
+
+isNotOK(); // ReferenceError: notOK is not defined
+```
+
+_**Note** that `var` would behave a bit differently in the above example. We're gonna get to that later._
+
+The process of determining the color of non-declaration marbles (references) can be thought of as lookup during runtime (in actuality it is already determined during compilation). The `heroes` variable in the `for`-loop of our example program is not a declaration and therefore has no color. We ask the BLUE scope bucket if it has a marble matching that name, which it does not. We then check the next outer bucket, RED, which does. So the `heroes` variable reference in the for-loop is determined to be a RED marble.
+
+### Lookup Failures
+
+If the lookup for an identifier cannot be resolved after checking all lexically available scope, an error condition exists. How this error condition is handled depends on the role of the variable (_target_ vs. _source_) and if the program is in strict mode or not.
+
+> - If a value is not being assigned to a variable, the variable is a **source**.
+> - If a value is being assigned to a variable, the variable is a **target**.
+
+If the failed lookup references a _source_ variable, the variable is considered undeclared and a `ReferenceError` will be thrown. The same happens if the lookup references a _target_ variable, but only if strict-mode is enabled.
+
+If strict-mode is not enabled and the variable is a _target_ an **accidental global variable** is created to fulfil the assignment.
+
+```js
+function getHeroName() {
+  // assignment to an undeclared variable
+  nextHero = 'Batman';
+}
+getHeroName();
+
+console.log(nextHero);
+// "Batman" <-- accidental global variable
+```
+
+The use of strict-mode protects against this behaviour and a `ReferenceError` is thrown.
+
+### Function Scope vs Block Scope
+
+If a variable is declared inside a function (using `var`), the JavaScript compiler handles this declaration as its parsing the function and associates that that declaration with the function's scope.
+
+If a variable is block-scope declared (using `let` or `const`), then it is associated with the nearest enclosing `{..}` block, rather than it's enclosing function (as `var` would be).
+
+To illustrate:
+
+```js
+function functionScoped() {
+  if (true) {
+    var name = 'Bruce';
+  }
+  console.log(name);
+}
+
+function blockScoped() {
+  if (true) {
+    let name = 'Bruce';
+  }
+  console.log(name);
+}
+
+functionScoped(); // Bruce
+blockScoped(); // ReferenceError: name is not defined
+```
+
+### Key Take-Aways
+
+- Lexical scope is determined during code compilation
+
+- Variables are **declared** in specific scopes; colored marbles in colored buckets
+
+- Variable references that appear in the same scope the variable was declared, or in any deeper nested scope, will be labeled a marble of the same color
+
+- Lookup failure of _target_ references is handle differently depending on if the program is in strict-mode or not

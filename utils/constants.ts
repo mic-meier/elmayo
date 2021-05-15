@@ -1,1 +1,1 @@
-export const SITE_NAMES = `El Mayo's Home`
+export const SITE_NAME = `El Mayo's Home`;
