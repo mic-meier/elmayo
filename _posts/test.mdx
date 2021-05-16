@@ -1,0 +1,186 @@
+---
+slug: 'test'
+title: 'Test the Layout'
+date: '2021-05-15'
+tagline: 'Designing the layout'
+---
+
+## Headers
+
+## This is an h2 tag
+
+### This is an h3 tag
+
+#### This is an h4 tag
+
+##### This is an h5 tag
+
+###### This is an h6 tag
+
+## Paragrapsh
+
+To create paragraphs, use a blank line to separate one or more lines of text.
+
+I really like using Markdown.
+
+I think I'll use it to format all of my documents from now on.
+
+## Line Breaks
+
+This is the first line. And this is the second line.
+
+## Emphasis
+
+_This text will be italic_ _This will also be italic_
+
+**This text will be bold** **This will also be bold**
+
+_You **can** combine them_
+
+## Block Quotes
+
+> Dorothy followed her through many of the beautiful rooms in her castle.
+
+## Block Quotes with Multiple Paragraphs
+
+> Dorothy followed her through many of the beautiful rooms in her castle.
+>
+> The Witch bade her clean the pots and kettles and sweep the floor and keep the
+> fire fed with wood.
+
+## Nested Blockquotes
+
+> Dorothy followed her through many of the beautiful rooms in her castle.
+>
+> The Witch bade her clean the pots and kettles and sweep the floor and keep the
+> fire fed with wood.
+
+## Lists
+
+## Unordered
+
+- Item 1
+- Item 2
+  - Item 2a
+  - Item 2b
+
+## Ordered
+
+1. Item 1
+1. Item 2
+1. Item 3
+   1. Item 3a
+   1. Item 3b
+
+## Starting Unordered List Items With Numbers
+
+If you need to start an unordered list item with a number followed by a period,
+you can use a backslash (\) to escape the period.
+
+- 1968\. A great year!
+- I think 1969 was second best.
+
+## Adding Elements in Lists
+
+To add another element in a list while preserving the continuity of the list,
+indent the element four spaces or one tab, as shown in the following examples.
+
+### Paragraphs
+
+- This is the first list item.
+- Here's the second list item.
+
+  I need to add another paragraph below the second list item.
+
+- And here's the third list item.
+
+### Blockquotes
+
+- This is the first list item.
+- Here's the second list item.
+
+  > A blockquote would look great below the second list item.
+
+- And here's the third list item.
+
+## Inline Code
+
+Here is some inline `code`
+
+## CodeBlock
+
+```javascript
+// outer/global scope: RED
+
+const heroes = [
+  {id: 1, name: 'Batman', identity: 'Bruce Wayne'},
+  {id: 2, name: 'Robin', identity: 'Dick Grayson'},
+  {id: 3, name; 'Catwoman', identity: 'Selina Kyle'}
+]
+
+function getHeroName(heroID) {
+  // function scope: BLUE
+
+  for (let hero of heroes) {
+    // LOOP SCOPE: GREEN
+
+    if (hero.id === heroID) {
+      return hero.name
+    }
+  }
+}
+
+const nextHero = getHeroName(1)
+
+console.log(nextHero)
+// Batman
+```
+
+## Horizontal Rules
+
+To create a horizontal rule, use three or more asterisks (\*\*\*), dashes (---),
+or underscores (\_\_\_) on a line by themselves.
+
+Asterisks:
+
+---
+
+Dashes
+
+---
+
+Underscores
+
+---
+
+## Links
+
+To create a link, enclose the link text in brackets (e.g., [Duck Duck Go]) and
+then follow it immediately with the URL in parentheses (e.g.,
+(https://duckduckgo.com)).
+
+My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
+
+## URLs and Email Addresses
+
+To quickly turn a URL or email address into a link, enclose it in angle
+brackets.
+
+<https://www.markdownguide.org> <fake@example.com>
+
+## Task Lists
+
+- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [x] this is a complete item
+- [ ] this is an incomplete item
+
+## Tables
+
+You can create tables by assembling a list of words and dividing them with
+hyphens - (for the first row), and then separating each column with a pipe |:
+
+| First Header                | Second Header                |
+| --------------------------- | ---------------------------- |
+| Content from cell 1         | Content from cell 2          |
+| Content in the first column | Content in the second column |
