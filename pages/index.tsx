@@ -17,7 +17,7 @@ export default function BlogList({ posts }: Props) {
         {posts.map((post) => (
           <div key={post.slug}>
             <h2 className="text-2xl font-bold mb-4">
-              <Link href={`/posts/${post.slug}`}>
+              <Link href={`/blog/${post.slug}`}>
                 <a>{post.title}</a>
               </Link>
             </h2>
@@ -31,8 +31,6 @@ export default function BlogList({ posts }: Props) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = getAllPosts(['slug', 'date', 'tagline', 'title']);
-  console.log('running');
-  console.log(`posts`, posts);
 
   return { props: { posts } };
 };
