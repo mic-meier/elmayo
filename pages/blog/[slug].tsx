@@ -1,5 +1,6 @@
 import Layout from 'components/Layout';
 import BlogImage from 'components/mdx/BlogImage';
+import mdxPrism from 'mdx-prism';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -21,8 +22,13 @@ export default function PostPage({ source, frontMatter }: Props) {
     <Layout pageTitle={frontMatter.title}>
       <Head>
         <meta name="tagline" content={frontMatter.tagline} key="tagline"></meta>
+
+        <link
+          href="https://unpkg.com/prism-theme-night-owl@1.4.0/build/style.css"
+          rel="stylesheet"
+        />
       </Head>
-      <article>
+      <article className="prose">
         {/* TODO: Blog title component */}
         <MDXRemote {...source} components={components} />
       </article>
@@ -37,6 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     scope: data,
     mdxOptions: {
       remarkPlugins: [require('remark-code-titles')],
+      rehypePlugins: [mdxPrism],
     },
   });
 
