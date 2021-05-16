@@ -1,4 +1,5 @@
 import Layout from 'components/Layout';
+import BlogImage from 'components/mdx/BlogImage';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -11,7 +12,9 @@ type Props = {
   frontMatter: Omit<IPost, 'slug'>;
 };
 
-const components = {};
+const components = {
+  BlogImage,
+};
 
 export default function PostPage({ source, frontMatter }: Props) {
   return (
@@ -48,8 +51,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
       slug: post.slug,
     },
   }));
-
-  console.log(`paths`, paths);
 
   return {
     paths,
