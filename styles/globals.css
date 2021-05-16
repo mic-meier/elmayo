@@ -6,12 +6,6 @@
   @apply rounded-md -mx-4 px-4
 }
 
-/* .prose code {
-  color: #7fdbca;;
-  background: #011627;
-  @apply px-2 py-0.5 rounded-md
-} */
-
 .remark-code-title {
   color: #d6deeb;
   background: #011627;
