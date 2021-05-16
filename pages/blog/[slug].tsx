@@ -33,7 +33,12 @@ export default function PostPage({ source, frontMatter }: Props) {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { content, data } = getPost(params?.slug as string);
 
-  const mdxSource = await serialize(content, { scope: data });
+  const mdxSource = await serialize(content, {
+    scope: data,
+    mdxOptions: {
+      remarkPlugins: [require('remark-code-titles')],
+    },
+  });
 
   return {
     props: {
