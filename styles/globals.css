@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.prose pre {
+  @apply rounded-md -mx-4 px-4
+}
+
+
+.remark-code-title {
+  color: #d6deeb;
+  background: #011627;
+  @apply px-4 py-3 rounded-t-md font-mono font-bold -mx-4;
+}
+
+.remark-code-title + pre {
+  @apply mt-0 rounded-t-none rounded-b-md -mx-4 px-4;
+}
