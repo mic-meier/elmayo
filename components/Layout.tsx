@@ -1,19 +1,19 @@
-import Header from './Header'
-import Meta from './Meta'
+import Header from './Header';
+import Meta from './Meta';
 
 type Props = {
-  children: React.ReactNode
-  pageTitle?: string
-}
+  children: React.ReactNode;
+  title?: string;
+};
 
-export default function Layout({ children, pageTitle }: Props) {
+export default function Layout({ children, title = "El Mayo's HOME" }: Props) {
   return (
     <>
-      <Meta pageTitle={pageTitle} />
-      <div className="max-w-prose mx-auto px-4">
+      <Meta title={title} />
+      <div className="max-w-6xl mx-auto">
         <Header />
-        <main className="pt-4 pb=12">{children}</main>
+        <main className="mx-auto pt-4 pb-12">{children}</main>
       </div>
     </>
-  )
+  );
 }

@@ -1,14 +1,14 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 type Props = {
-  pageTitle?: string
-}
+  title?: string;
+};
 
-export default function Meta({ pageTitle }: Props) {
+export default function Meta({ title }: Props) {
   return (
     <Head>
-      <title>{pageTitle}</title>
+      <title>{title}</title>
       {/*TODO: Add favicons etc .*/}
     </Head>
-  )
+  );
 }

@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { IPost } from 'types/post';
+import { SITE_NAME } from 'utils/constants';
 import { getAllPosts, getPost } from 'utils/mdxUtils';
 
 type Props = {
@@ -19,7 +20,7 @@ const components = {
 
 export default function PostPage({ source, frontMatter }: Props) {
   return (
-    <Layout pageTitle={frontMatter.title}>
+    <Layout title={`${SITE_NAME} | BLOG | ${frontMatter.title}`}>
       <Head>
         <meta name="tagline" content={frontMatter.tagline} key="tagline"></meta>
 
@@ -28,7 +29,7 @@ export default function PostPage({ source, frontMatter }: Props) {
           rel="stylesheet"
         />
       </Head>
-      <article className="prose">
+      <article className="prose mx-auto">
         {/* TODO: Blog title component */}
         <MDXRemote {...source} components={components} />
       </article>
