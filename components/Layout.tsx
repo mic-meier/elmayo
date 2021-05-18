@@ -10,9 +10,9 @@ export default function Layout({ children, title = "El Mayo's HOME" }: Props) {
   return (
     <>
       <Meta title={title} />
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-full mx-auto">
         <Header />
-        <main className="mx-auto pt-4 pb-12">{children}</main>
+        <main className="max-w-prose mx-auto pt-4 pb-12">{children}</main>
       </div>
     </>
   );

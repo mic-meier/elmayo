@@ -12,7 +12,9 @@ type Props = {
 export default function BlogList({ posts }: Props) {
   return (
     <Layout title={`${SITE_NAME} | BLOG`}>
-      <h1 className="text-4xl font-bold mb-4 text-purple-700">Blog</h1>
+      <h1 className="text-6xl font-bold mt-12 mb-12 text-gray-900">
+        Blog Posts
+      </h1>
       <div className="space-y-12">
         {posts.map((post) => (
           <div key={post.slug}>
