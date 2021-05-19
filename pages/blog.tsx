@@ -12,7 +12,7 @@ type Props = {
 export default function BlogList({ posts }: Props) {
   return (
     <Layout title={`${SITE_NAME} | BLOG`}>
-      <h1 className="text-6xl font-bold mt-12 mb-12 text-gray-900">
+      <h1 className="text-6xl font-bold mt-12 mb-12 text-gray-800">
         Blog Posts
       </h1>
       <div className="space-y-12">

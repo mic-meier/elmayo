@@ -6,9 +6,11 @@ type Props = {
 
 export default function NavLink({ linkTo }: Props) {
   return (
-    <li className="uppercase text-white font-semibold">
+    <li className="uppercase px-2 py2 text-white font-semibold">
       <Link href={`/${linkTo}`}>
-        <a className="pl-4 py-2">{linkTo}</a>
+        <a className="border-b-2 border-indigo-600 hover:border-white transition duration-300">
+          {linkTo}
+        </a>
       </Link>
     </li>
   );
