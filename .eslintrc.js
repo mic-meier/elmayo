@@ -46,7 +46,7 @@ module.exports = {
         aspects: ['invalidHref', 'preferButton'],
       },
     ],
-    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+    'prettier/prettier': ['error', { semi: false, singleQuote: true }],
   },
   plugins: [
     '@typescript-eslint',
@@ -55,4 +55,4 @@ module.exports = {
     'import',
     'react',
   ],
-};
+}

@@ -1,13 +1,13 @@
-import Layout from 'components/Layout';
-import { GetStaticProps } from 'next';
-import Link from 'next/link';
-import { IPost } from 'types/post';
-import { SITE_NAME } from 'utils/constants';
-import { getAllPosts } from 'utils/mdxUtils';
+import Layout from 'components/Layout'
+import { GetStaticProps } from 'next'
+import Link from 'next/link'
+import { IPost } from 'types/post'
+import { SITE_NAME } from 'utils/constants'
+import { getAllPosts } from 'utils/mdxUtils'
 
 type Props = {
-  posts: IPost[];
-};
+  posts: IPost[]
+}
 
 export default function BlogList({ posts }: Props) {
   return (
@@ -28,11 +28,11 @@ export default function BlogList({ posts }: Props) {
         ))}
       </div>
     </Layout>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts(['slug', 'date', 'tagline', 'title']);
+  const posts = getAllPosts(['slug', 'date', 'tagline', 'title'])
 
-  return { props: { posts } };
-};
+  return { props: { posts } }
+}

@@ -5,7 +5,7 @@ date: '2020-11-19'
 tagline: 'How does JS know which variables are accessible by any given statement, and how does it handle two variables of the same name?'
 ---
 
-<BlogHeader title="Lexical Scope in JS - The Basics" date="2020-11-19" />
+<BlogTitle title="Lexical Scope in JS - The Basics" date="2020-11-19" />
 
 <BlogImage
   url="https://images.unsplash.com/photo-1516867155773-0a95d01e4b77?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
@@ -65,23 +65,23 @@ An expression in our RED bucket has only access to red marbles (variables/identi
 
 ```js
 // OK
-const ok = "I'm OK";
+const ok = "I'm OK"
 
 function isOK() {
-  console.log(ok);
+  console.log(ok)
 }
 
-isOK(); // I'm OK
+isOK() // I'm OK
 
 // Not OK
 function isNotOK() {
-  console.log(notOK);
+  console.log(notOK)
   if (true) {
-    const notOK = "I'm not OK";
+    const notOK = "I'm not OK"
   }
 }
 
-isNotOK(); // ReferenceError: notOK is not defined
+isNotOK() // ReferenceError: notOK is not defined
 ```
 
 _**Note** that `var` would behave a bit differently in the above example. We're gonna get to that later._
@@ -102,11 +102,11 @@ If strict-mode is not enabled and the variable is a _target_ an **accidental glo
 ```js
 function getHeroName() {
   // assignment to an undeclared variable
-  nextHero = 'Batman';
+  nextHero = 'Batman'
 }
-getHeroName();
+getHeroName()
 
-console.log(nextHero);
+console.log(nextHero)
 // "Batman" <-- accidental global variable
 ```
 
@@ -123,20 +123,20 @@ To illustrate:
 ```js
 function functionScoped() {
   if (true) {
-    var name = 'Bruce';
+    var name = 'Bruce'
   }
-  console.log(name);
+  console.log(name)
 }
 
 function blockScoped() {
   if (true) {
-    let name = 'Bruce';
+    let name = 'Bruce'
   }
-  console.log(name);
+  console.log(name)
 }
 
-functionScoped(); // Bruce
-blockScoped(); // ReferenceError: name is not defined
+functionScoped() // Bruce
+blockScoped() // ReferenceError: name is not defined
 ```
 
 ### Key Take-Aways

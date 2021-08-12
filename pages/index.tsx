@@ -1,5 +1,5 @@
-import Layout from 'components/Layout';
-import { SITE_NAME } from 'utils/constants';
+import Layout from 'components/Layout'
+import { SITE_NAME } from 'utils/constants'
 
 export default function BlogList() {
   return (
@@ -8,5 +8,5 @@ export default function BlogList() {
         <p>Hellooo</p>
       </Layout>
     </div>
-  );
+  )
 }

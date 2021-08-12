@@ -1,0 +1,173 @@
+```js
+const Counter = () => {
+  const [count, setCount] = useState(0)
+
+  const handleLogClick = () => {
+    setTimeout(() => {
+      console.log(`You logged on ${count}`)
+    }, 3000)
+  }
+
+  return (
+    <div>
+      <p>You have clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+      <button onClick={handleLogClick}>
+        Log count
+      </button>
+    </div>
+  )
+}
+```
+
+```js
+const Counter = () => {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    document.title = `You have clicked ${count} times`
+  })
+
+  return (
+    <div>
+      <p>You have clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  )
+}
+```
+
+```js
+const Counter = () => {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(`You have clicked ${count} times`)
+    }, 3000)
+  })
+
+  return (
+    <div>
+      <p>You have clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  )
+}
+```
+
+```js
+componentDidUpdate() {
+  setTimeout(() => {
+    console.log(`You have clicked ${count} times`)
+  }, 3000)
+}
+```
+
+```js
+const Counter = () => {
+  const [count, setCount] = useState(0)
+  const latestCount = useRef(count)
+
+  useEffect(() => {
+    // Set the mutable latest value
+    latestCount.current = count
+    setTimeout(() => {
+      // Read the mutable latest value
+      console.log(`You have clicked ${latestCount.current} times`)
+    }, 3000)
+  })
+
+  return (
+    <div>
+      <p>You have clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  )
+}
+```
+
+```js
+useEffect(() => {
+  ChatAPI.subscribeToFriend(props.id, handleStatusChange)
+
+  return () => {
+    ChatAPI.unsubscribeToFriend(props.id, handleStatusChange)
+  }
+})
+```
+
+```js
+// First render, props are {id: 10}
+const Example = (props) => {
+  // ...
+  useEffect(
+    // Effect from first render
+    () => {
+    ChatAPI.subscribeToFriend(10, handleStatusChange)
+    // Clean up effect from first render
+    return () => {
+      ChatAPI.unsubscribeToFriend(10, handleStatusChange)
+    }
+  })
+}
+
+// Next render, props are {id: 20}
+const Example = (props) => {
+  // ...
+  useEffect(
+    // Effect from second render
+    () => {
+    ChatAPI.subscribeToFriend(20, handleStatusChange)
+    // Clean up effect from second render
+    return () => {
+      ChatAPI.unsubscribeToFriend(20, handleStatusChange)
+    }
+  })
+}
+```
+
+```js
+const Greeting = ({ name }) => {
+  const [counter, setCounter] = useState(0)
+
+  useEffect(() => {
+    document.title = `Hello ${name}`
+  }, [name]) // Our dependencies, or deps
+
+  return (
+    <h1 className="Greeting">
+      Hello, {name}
+      <button onClick={() => setCounter(count + 1)}>
+        Increment
+      </button>
+    </h1>
+  )
+}
+```
+
+```js
+useEffect(() => {
+  const id = setInterval(() => {
+    setCount(count + 1)
+  }, 1000)
+  return () => clearInterval(id)
+}, [count])
+```
+
+```js
+useEffect(() => {
+  const id = setInterval(() => {
+    setCount(c => c + 1)
+  }, 1000)
+  return () => clearInterval(id)
+}, [])
+```
