@@ -5,6 +5,11 @@ date: '2020-11-19'
 tagline: 'Test'
 ---
 
+<BlogImage
+  url="https://images.unsplash.com/reserve/uZYSV4nuQeyq64azfVIn_15130980706_64134efc6e_o.jpg?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+  alt="scattered letters"
+/>
+
 ## Values
 
 Every value has a type (eg. number, string, function etc.). The type determines the value's role.
@@ -60,29 +65,29 @@ These types are available in JavaScript:
 The `typeof` operator examines a value and returns its type (as a string!).
 
 ```javascript
-let a;
-typeof a; // "undefined"
+let a
+typeof a // "undefined"
 
-a = 'hello world';
-typeof a; // "string"
+a = 'hello world'
+typeof a // "string"
 
-a = 7;
-typeof a; // "number""
+a = 7
+typeof a // "number""
 
-a = true;
-typeof a; // "boolean"
+a = true
+typeof a // "boolean"
 
-a = null;
-typeof a; // "object" -- weird, bug
+a = null
+typeof a // "object" -- weird, bug
 
-a = undefined;
-typeof a; // "undefined"
+a = undefined
+typeof a // "undefined"
 
-a = { b: 'c' };
-typeof a; // "object"
+a = { b: 'c' }
+typeof a // "object"
 
-a = [1, 2, 3];
-typeof a; // "object" -- weird, bug
+a = [1, 2, 3]
+typeof a // "object" -- weird, bug
 ```
 
 ## Operators

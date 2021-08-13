@@ -1,6 +1,6 @@
 import Layout from 'components/Layout'
 import BlogImage from 'components/mdx/BlogImage'
-import BlogTitle from 'components/mdx/BlogTitle'
+import format from 'date-fns/format'
 import mdxPrism from 'mdx-prism'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -17,10 +17,10 @@ type Props = {
 
 const components = {
   BlogImage,
-  BlogTitle,
 }
 
 export default function PostPage({ source, frontMatter }: Props) {
+  const formattedDate = format(new Date(frontMatter.date), 'do MMM yyyy')
   return (
     <Layout title={`${SITE_NAME} | BLOG | ${frontMatter.title}`}>
       <Head>
@@ -31,7 +31,11 @@ export default function PostPage({ source, frontMatter }: Props) {
           rel="stylesheet"
         />
       </Head>
-      <article className="prose mx-auto">
+      <div className="mt-24">
+        <h1 className="mb-0 text-5xl font-extrabold">{frontMatter.title}</h1>
+        <div className="text-gray-500 text-sm">{formattedDate}</div>
+      </div>
+      <article className="prose mx-auto mt-12">
         <MDXRemote {...source} components={components} />
       </article>
     </Layout>
