@@ -1,3 +1,4 @@
+import BlogImage from 'components/BlogImage'
 import Layout from 'components/Layout'
 import format from 'date-fns/format'
 import { getMDXComponent } from 'mdx-bundler/client'
@@ -15,6 +16,8 @@ type Props = {
     date: string
     tagline: string
     published: boolean
+    imgUrl: string
+    imgAlt: string
   }
 }
 
@@ -36,6 +39,9 @@ export default function PostPage({ code, frontmatter }: Props) {
         <h1 className="mb-0 text-5xl font-extrabold">{frontmatter.title}</h1>
         <div className="text-gray-500 text-sm">{formattedDate}</div>
       </div>
+      {frontmatter.imgUrl ? (
+        <BlogImage url={frontmatter.imgUrl} alt={frontmatter.imgAlt} />
+      ) : null}
       <article className="prose mx-auto mt-12">
         <Component />
       </article>
