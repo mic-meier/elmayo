@@ -12,12 +12,12 @@ html {
   @apply rounded-md -mx-4 px-4
 }
 
-.remark-code-title {
-  color: #d6deeb;
-  background: #011627;
+.rehype-code-title {
+  color: #e5e7eb;
+  background: #1f2937;
   @apply px-4 pt-4 pb-3 rounded-t-md font-mono font-bold -mx-4 border-b-2 border-gray-500;
 }
 
-.remark-code-title + pre {
+.rehype-code-title + pre {
   @apply mt-0 rounded-t-none rounded-b-md -mx-4 px-4;
 }

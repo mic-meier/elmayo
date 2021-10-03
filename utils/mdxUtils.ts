@@ -1,62 +1,62 @@
 import fs from 'fs'
-import matter from 'gray-matter'
+import { bundleMDXFile } from 'mdx-bundler'
 import { join } from 'path'
-
-type Items = {
-  [key: string]: string
-}
-
-type Post = {
-  data: {
-    [key: string]: string
-  }
-  content: string
-}
+import rehypeCodeTitles from 'rehype-code-titles'
+import rehypePrism from 'rehype-prism-plus'
 
 const POSTS_PATH = join(process.cwd(), '_posts')
 
-function getPostFilePaths(): string[] {
+export function getPostFilePaths(): string[] {
   // Search folder with posts and return only md(x) files
-  return fs.readdirSync(POSTS_PATH).filter((path) => /\.mdx?$/.test(path))
+  const paths = fs
+    .readdirSync(POSTS_PATH)
+    .filter((path) => /\.mdx?$/.test(path))
+  return paths
 }
 
-export function getPost(slug: string): Post {
-  const fullPath = join(POSTS_PATH, `${slug}.mdx`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-  const { data, content } = matter(fileContents)
-
-  return { data, content }
+export const getFrontMatter = async (path: string) => {
+  const { frontmatter } = await bundleMDXFile(path).then((data) => data)
+  return frontmatter
 }
 
-export function getPostItems(filePath: string, fields: string[] = []): Items {
-  const slug = filePath.replace(/\.mdx?$/, '')
-  const { data, content } = getPost(slug)
+export const getPost = async (slug: string | string[] | undefined) => {
+  console.log(join(process.cwd(), 'components/mdx'))
+  const { code, frontmatter } = await bundleMDXFile(
+    `${POSTS_PATH}/${slug}.mdx`,
+    {
+      xdmOptions(options) {
+        options.rehypePlugins = [
+          ...(options?.rehypePlugins ?? []),
+          rehypeCodeTitles,
+          rehypePrism,
+        ]
+        return options
+      },
+    }
+  )
+  return { code, frontmatter }
+}
 
-  const items: Items = {}
+export async function getAllPosts() {
+  const paths = getPostFilePaths()
+  return paths.map(async (path) => await getFrontMatter(join(POSTS_PATH, path)))
+}
 
-  // Ensure only the minimally needed data is exposed
-  fields.forEach((field) => {
-    if (field === 'slug') {
-      items[field] = slug
-    }
-    if (field === 'content') {
-      items[field] = content
-    }
-    if (data[field]) {
-      items[field] = data[field]
-    }
+export async function getAllPostsFrontmatter() {
+  const paths = getPostFilePaths()
+  const promises = paths.map(async (path) => {
+    const frontmatter = await getFrontMatter(join(POSTS_PATH, path)).then(
+      (fm) => {
+        if (process.env.NODE_ENV === 'production') {
+          if (fm.published) return fm
+        } else if (process.env.NODE_ENV === 'development') return fm
+      }
+    )
+    return frontmatter
   })
 
-  return items
-}
+  const posts = await Promise.all(promises)
+  const filteredPosts = posts.filter((post) => post?.published != undefined)
 
-export function getAllPosts(fields: string[] = []): Items[] {
-  const filePaths = getPostFilePaths()
-
-  const posts = filePaths
-    .map((filePath) => getPostItems(filePath, fields))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-
-  return posts
+  return filteredPosts.sort((a, b) => (a?.date > b?.date ? -1 : 1))
 }
