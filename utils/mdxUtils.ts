@@ -20,7 +20,6 @@ export const getFrontMatter = async (path: string) => {
 }
 
 export const getPost = async (slug: string | string[] | undefined) => {
-  console.log(join(process.cwd(), 'components/mdx'))
   const { code, frontmatter } = await bundleMDXFile(
     `${POSTS_PATH}/${slug}.mdx`,
     {
