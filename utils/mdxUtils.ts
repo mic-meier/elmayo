@@ -33,15 +33,17 @@ export async function getAllPostsFrontmatter() {
     const frontmatter = await getFrontMatter(join(POSTS_PATH, path)).then(
       (fm) => {
         if (process.env.NODE_ENV === 'production') {
-          return fm.published ? fm : null
+          if (fm.published) return fm
+        } else {
+          return fm
         }
-        return fm
       }
     )
     return frontmatter
   })
 
   const posts = await Promise.all(promises)
+  const filteredPosts = posts.filter((post) => post?.published != undefined)
 
-  return posts.sort((a, b) => (a?.date > b?.date ? -1 : 1))
+  return filteredPosts.sort((a, b) => (a?.date > b?.date ? -1 : 1))
 }
