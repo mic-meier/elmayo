@@ -1,4 +1,5 @@
 import Layout from 'components/Layout'
+import format from 'date-fns/format'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { IPost } from 'types/post'
@@ -16,16 +17,23 @@ export default function BlogList({ posts }: Props) {
         Blog Posts
       </h1>
       <div className="space-y-12">
-        {posts.map((post) => (
-          <div key={post.slug}>
-            <h2 className="text-2xl font-bold mb-4">
-              <Link href={`/blog/${post.slug}`}>
-                <a>{post.title}</a>
-              </Link>
-            </h2>
-            <p>{post.tagline}</p>
-          </div>
-        ))}
+        {posts.map((post) => {
+          let formattedDate
+          if (post.date) {
+            formattedDate = format(new Date(post.date), 'do MMM yyyy')
+          }
+          return (
+            <div key={post.slug}>
+              <h2 className="text-2xl font-bold mb-4">
+                <Link href={`/blog/${post.slug}`}>
+                  <a>{post.title}</a>
+                </Link>
+              </h2>
+              {formattedDate ? <div>{formattedDate}</div> : null}
+              <p>{post.tagline}</p>
+            </div>
+          )
+        })}
       </div>
     </Layout>
   )

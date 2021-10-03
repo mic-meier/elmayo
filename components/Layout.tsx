@@ -1,10 +1,10 @@
-import Header from './Header';
-import Meta from './Meta';
+import Header from './Header'
+import Meta from './Meta'
 
 type Props = {
-  children: React.ReactNode;
-  title?: string;
-};
+  children: React.ReactNode
+  title?: string
+}
 
 export default function Layout({ children, title = "El Mayo's HOME" }: Props) {
   return (
@@ -15,5 +15,5 @@ export default function Layout({ children, title = "El Mayo's HOME" }: Props) {
         <main className="max-w-prose mx-auto pt-4 pb-12">{children}</main>
       </div>
     </>
-  );
+  )
 }

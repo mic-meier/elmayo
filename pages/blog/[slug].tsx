@@ -28,6 +28,7 @@ export default function PostPage({ source, frontMatter }: Props) {
 
         <link
           href="https://unpkg.com/prism-theme-night-owl@1.4.0/build/style.css"
+          // href="https://unpkg.com/prism-themes@1.6.0/themes/prism-synthwave84.css"
           rel="stylesheet"
         />
       </Head>
