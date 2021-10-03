@@ -4,7 +4,7 @@ import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { IPost } from 'types/post'
 import { SITE_NAME } from 'utils/constants'
-import { getAllPosts } from 'utils/mdxUtils'
+import { getAllPostsFrontmatter } from 'utils/mdxUtils'
 
 type Props = {
   posts: IPost[]
@@ -40,7 +40,7 @@ export default function BlogList({ posts }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts(['slug', 'date', 'tagline', 'title'])
+  const posts = await getAllPostsFrontmatter()
 
   return { props: { posts } }
 }

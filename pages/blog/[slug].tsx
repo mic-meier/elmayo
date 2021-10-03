@@ -1,30 +1,32 @@
 import Layout from 'components/Layout'
-import BlogImage from 'components/mdx/BlogImage'
 import format from 'date-fns/format'
-import mdxPrism from 'mdx-prism'
+import { getMDXComponent } from 'mdx-bundler/client'
+// import mdxPrism from 'mdx-prism'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import React from 'react'
 import { IPost } from 'types/post'
 import { SITE_NAME } from 'utils/constants'
-import { getAllPosts, getPost } from 'utils/mdxUtils'
+import { getAllPostsFrontmatter, getPost } from 'utils/mdxUtils'
 
 type Props = {
-  source: MDXRemoteSerializeResult
-  frontMatter: Omit<IPost, 'slug'>
+  code: string
+  frontmatter: {
+    slug: string
+    title: string
+    date: string
+    tagline: string
+    published: boolean
+  }
 }
 
-const components = {
-  BlogImage,
-}
-
-export default function PostPage({ source, frontMatter }: Props) {
-  const formattedDate = format(new Date(frontMatter.date), 'do MMM yyyy')
+export default function PostPage({ code, frontmatter }: Props) {
+  const Component = React.useMemo(() => getMDXComponent(code), [code])
+  const formattedDate = format(new Date(frontmatter.date), 'do MMM yyyy')
   return (
-    <Layout title={`${SITE_NAME} | BLOG | ${frontMatter.title}`}>
+    <Layout title={`${SITE_NAME} | BLOG | ${frontmatter.title}`}>
       <Head>
-        <meta name="tagline" content={frontMatter.tagline} key="tagline"></meta>
+        <meta name="tagline" content={frontmatter.tagline} key="tagline"></meta>
 
         <link
           href="https://unpkg.com/prism-theme-night-owl@1.4.0/build/style.css"
@@ -33,43 +35,40 @@ export default function PostPage({ source, frontMatter }: Props) {
         />
       </Head>
       <div className="mt-24">
-        <h1 className="mb-0 text-5xl font-extrabold">{frontMatter.title}</h1>
+        <h1 className="mb-0 text-5xl font-extrabold">{frontmatter.title}</h1>
         <div className="text-gray-500 text-sm">{formattedDate}</div>
       </div>
       <article className="prose mx-auto mt-12">
-        <MDXRemote {...source} components={components} />
+        <Component />
       </article>
     </Layout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { content, data } = getPost(params?.slug as string)
+  const slug = params?.slug
+  // const { code, frontmatter } = await getPost(params?.slug as string)
 
-  const mdxSource = await serialize(content, {
-    scope: data,
-    mdxOptions: {
-      remarkPlugins: [require('remark-code-titles')],
-      rehypePlugins: [mdxPrism],
-    },
-  })
+  const { code, frontmatter } = await getPost(slug)
 
   return {
     props: {
-      source: mdxSource,
-      frontMatter: data,
+      code,
+      frontmatter,
     },
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getAllPosts(['slug'])
+  const posts = await getAllPostsFrontmatter()
 
-  const paths = posts.map((post) => ({
-    params: {
-      slug: post.slug,
-    },
-  }))
+  const paths = posts.map((post) => {
+    return {
+      params: {
+        slug: post?.slug,
+      },
+    }
+  })
 
   return {
     paths,
