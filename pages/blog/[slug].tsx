@@ -1,11 +1,9 @@
 import Layout from 'components/Layout'
 import format from 'date-fns/format'
 import { getMDXComponent } from 'mdx-bundler/client'
-// import mdxPrism from 'mdx-prism'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import { IPost } from 'types/post'
 import { SITE_NAME } from 'utils/constants'
 import { getAllPostsFrontmatter, getPost } from 'utils/mdxUtils'
 
@@ -47,7 +45,6 @@ export default function PostPage({ code, frontmatter }: Props) {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug
-  // const { code, frontmatter } = await getPost(params?.slug as string)
 
   const { code, frontmatter } = await getPost(slug)
 

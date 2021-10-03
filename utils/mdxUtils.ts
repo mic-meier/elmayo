@@ -1,6 +1,8 @@
 import fs from 'fs'
 import { bundleMDXFile } from 'mdx-bundler'
 import { join } from 'path'
+import rehypeCodeTitles from 'rehype-code-titles'
+import rehypePrism from 'rehype-prism-plus'
 
 const POSTS_PATH = join(process.cwd(), '_posts')
 
@@ -18,7 +20,19 @@ export const getFrontMatter = async (path: string) => {
 }
 
 export const getPost = async (slug: string | string[] | undefined) => {
-  const { code, frontmatter } = await bundleMDXFile(`${POSTS_PATH}/${slug}.mdx`)
+  const { code, frontmatter } = await bundleMDXFile(
+    `${POSTS_PATH}/${slug}.mdx`,
+    {
+      xdmOptions(options) {
+        options.rehypePlugins = [
+          ...(options?.rehypePlugins ?? []),
+          rehypeCodeTitles,
+          rehypePrism,
+        ]
+        return options
+      },
+    }
+  )
   return { code, frontmatter }
 }
 
@@ -34,9 +48,7 @@ export async function getAllPostsFrontmatter() {
       (fm) => {
         if (process.env.NODE_ENV === 'production') {
           if (fm.published) return fm
-        } else {
-          return fm
-        }
+        } else if (process.env.NODE_ENV === 'development') return fm
       }
     )
     return frontmatter
