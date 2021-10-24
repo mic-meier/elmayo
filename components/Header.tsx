@@ -9,7 +9,7 @@ export default function Header() {
       <nav className="max-w-prose mx-auto flex items-baseline justify-between">
         <div className="pr-2 py-2 text-4xl">
           <Link href="/">
-            <a className=" font-bold text-white border-b-2 border-transparent hover:border-white transition duration-300">
+            <a className="font-bold text-white border-b-2 border-transparent hover:border-white transition duration-300">
               {SITE_NAME}
             </a>
           </Link>

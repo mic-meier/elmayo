@@ -21,3 +21,5 @@ html {
 .rehype-code-title + pre {
   @apply mt-0 rounded-t-none rounded-b-md -mx-4 px-4;
 }
+
+
