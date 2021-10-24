@@ -1,8 +1,8 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
 type Props = {
-  title?: string;
-};
+  title?: string
+}
 
 export default function Meta({ title }: Props) {
   return (
@@ -10,5 +10,5 @@ export default function Meta({ title }: Props) {
       <title>{title}</title>
       {/*TODO: Add favicons etc .*/}
     </Head>
-  );
+  )
 }
