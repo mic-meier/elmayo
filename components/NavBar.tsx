@@ -1,13 +1,6 @@
-import {
-  Menu,
-  MenuButton,
-  MenuItems,
-  MenuLink,
-  MenuPopover,
-  useMenuButtonContext,
-} from '@reach/menu-button'
+import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
-import { ReactChild, useEffect } from 'react'
+import { Fragment, ReactChild } from 'react'
 
 import { SITE_NAME } from '../utils/constants'
 
@@ -17,24 +10,24 @@ const LINKS = [
   { name: 'Blog', to: '/blog' },
 ]
 
-type NavLinkProps = {
-  to?: string
+type LinkProps = {
+  href: string
   children: ReactChild
 }
 
-const NavLink = ({ to, children }: NavLinkProps) => {
+const NavLink = ({ href, children }: LinkProps) => {
   return (
-    <li>
-      <Link href={`${to}`}>{children}</Link>
+    <li className="px-5 py-2 ">
+      <Link href={`${href}`}>{children}</Link>
     </li>
   )
 }
 
-const NavMobileLink = ({ to, children }: NavLinkProps) => {
+const NavMobileLink = ({ href, children }: LinkProps) => {
   return (
     <li className="px-5 py-2 list-none bg-white">
-      <Link href={`${to}`}>
-        <a className="underlined block whitespace-nowrap text-lg font-medium hover:bg-secondary focus:bg-secondary text-primary px-5vw py-9 hover:text-team-current border-b border-gray-200 dark:border-gray-600">
+      <Link href={href}>
+        <a className="underlined block whitespace-nowrap text-lg font-medium px-5vw py-9 border-b border-purple-200">
           {' '}
           {children}
         </a>
@@ -43,64 +36,44 @@ const NavMobileLink = ({ to, children }: NavLinkProps) => {
   )
 }
 
-const MobileMenuList = () => {
-  const { isExpanded } = useMenuButtonContext()
-
-  return (
-    <>
-      {isExpanded ? (
-        <MenuPopover
-          style={{ display: 'block' }}
-          position={(r) => ({
-            top: `calc(${Number(r?.top) + Number(r?.height)}px + 2.25rem)`, // 2.25 rem = py-9 from navbar
-            left: 0,
-            bottom: 0,
-            right: 0,
-          })}
-          className="z-50"
-        >
-          <div className="bg-primary flex flex-col pb-12 h-full border-t border-gray-200 overflow-y-scroll">
-            <MenuItems className="p-0 bg-transparent border-none">
-              {LINKS.map((link) => (
-                <MenuLink as={NavMobileLink} key={link.to} to={link.to}>
-                  {link.name}
-                </MenuLink>
-              ))}
-            </MenuItems>
-          </div>
-        </MenuPopover>
-      ) : null}
-    </>
-  )
-}
-
 const MobileMenu = () => {
   return (
-    <Menu>
-      {({ isExpanded }) => {
-        return (
-          <>
-            <MenuButton>
-              {isExpanded ? 'Close' : 'Open'} <span aria-hidden="true">▾</span>
-            </MenuButton>
-            <MobileMenuList />
-          </>
-        )
-      }}
+    <Menu as="div" className="relative">
+      {({ open }) => (
+        <>
+          <div>
+            <Menu.Button>{open ? 'Close' : 'Open'}</Menu.Button>
+          </div>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute right-0 w-screen px-5">
+              {LINKS.map((link) => (
+                <NavMobileLink key={link.name} href={link.to}>
+                  {link.name}
+                </NavMobileLink>
+              ))}
+            </Menu.Items>
+          </Transition>
+        </>
+      )}
     </Menu>
   )
 }
 
 export default function NavBar() {
-  useEffect(() => {
-    console.log('Rendered')
-  })
   return (
     <header className="pt-6 pb-2">
-      <nav className="max-w-prose mx-auto flex px-4 items-baseline justify-between">
+      <nav className="max-w-prose lg:max-w-4xl mx-auto flex px-4 items-baseline justify-between">
         <div className="pr-2 py-2 text-2xl lg:text-4xl">
           <Link href="/">
-            <a className="font-bold text-purple-500 border-b-2 border-transparent hover:border-white transition duration-300">
+            <a className="font-bold text-purple-700 border-b-2 border-transparent hover:border-white transition duration-300">
               {SITE_NAME}
             </a>
           </Link>

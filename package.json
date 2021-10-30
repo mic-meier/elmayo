@@ -15,7 +15,7 @@
     ]
   },
   "dependencies": {
-    "@reach/menu-button": "^0.16.2",
+    "@headlessui/react": "^1.4.1",
     "date-fns": "^2.25.0",
     "esbuild": "^0.13.11",
     "mdx-bundler": "^6.0.2",
