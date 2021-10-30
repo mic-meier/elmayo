@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.5",
     "date-fns": "^2.25.0",
     "esbuild": "^0.13.11",
     "mdx-bundler": "^6.0.2",
@@ -32,7 +33,7 @@
     "@typescript-eslint/parser": "^5.2.0",
     "a11y": "^0.5.1",
     "autoprefixer": "^10.4.0",
-    "eslint": "^8.1.0",
+    "eslint": "^7.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx": "^0.1.0",

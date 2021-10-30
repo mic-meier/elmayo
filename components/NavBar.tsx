@@ -1,4 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
+import { MenuIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import { Fragment, ReactChild } from 'react'
 
@@ -25,7 +26,7 @@ const NavLink = ({ href, children }: LinkProps) => {
 
 const NavMobileLink = ({ href, children }: LinkProps) => {
   return (
-    <li className="px-5 py-2 list-none bg-white">
+    <li className="px-8 py-2 list-none bg-white">
       <Link href={href}>
         <a className="underlined block whitespace-nowrap text-lg font-medium px-5vw py-9 border-b border-purple-200">
           {' '}
@@ -42,7 +43,13 @@ const MobileMenu = () => {
       {({ open }) => (
         <>
           <div>
-            <Menu.Button>{open ? 'Close' : 'Open'}</Menu.Button>
+            <Menu.Button>
+              {open ? (
+                <MenuIcon className="transform rotate-90 w-7 h-7 -mb-1 text-purple-700 " />
+              ) : (
+                <MenuIcon className="w-7 h-7 -mb-1 text-purple-700" />
+              )}
+            </Menu.Button>
           </div>
           <Transition
             as={Fragment}
@@ -53,7 +60,7 @@ const MobileMenu = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 w-screen px-5">
+            <Menu.Items className="absolute right-0 w-screen z-50">
               {LINKS.map((link) => (
                 <NavMobileLink key={link.name} href={link.to}>
                   {link.name}
@@ -73,7 +80,7 @@ export default function NavBar() {
       <nav className="max-w-prose lg:max-w-4xl mx-auto flex px-4 items-baseline justify-between">
         <div className="pr-2 py-2 text-2xl lg:text-4xl">
           <Link href="/">
-            <a className="font-bold text-purple-700 border-b-2 border-transparent hover:border-white transition duration-300">
+            <a className="font-bold text-purple-700 border-b-2 border-transparent hover:border-purple-700 transition duration-300">
               {SITE_NAME}
             </a>
           </Link>
@@ -81,7 +88,7 @@ export default function NavBar() {
         <div>
           <ul className="hidden lg:flex">
             {LINKS.map((link) => (
-              <NavLink key={link.to} to={link.to}>
+              <NavLink key={link.to} href={link.to}>
                 {link.name}
               </NavLink>
             ))}
