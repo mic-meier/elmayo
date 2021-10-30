@@ -1,4 +1,4 @@
-import { Menu, Transition } from '@headlessui/react'
+import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import { Fragment, ReactChild } from 'react'
@@ -14,6 +14,7 @@ const LINKS = [
 type LinkProps = {
   href: string
   children: ReactChild
+  rest?: any // TODO: Figure this out
 }
 
 const NavLink = ({ href, children }: LinkProps) => {
@@ -24,11 +25,15 @@ const NavLink = ({ href, children }: LinkProps) => {
   )
 }
 
-const NavMobileLink = ({ href, children }: LinkProps) => {
+const NavMobileLink = (props: LinkProps) => {
+  const { href, children, ...rest } = props
   return (
     <li className="px-8 py-2 list-none bg-white">
       <Link href={href}>
-        <a className="underlined block whitespace-nowrap text-lg font-medium px-5vw py-9 border-b border-purple-200">
+        <a
+          className="underlined block whitespace-nowrap text-lg font-medium px-5vw py-9 border-b border-purple-200"
+          {...rest}
+        >
           {' '}
           {children}
         </a>
@@ -39,17 +44,17 @@ const NavMobileLink = ({ href, children }: LinkProps) => {
 
 const MobileMenu = () => {
   return (
-    <Menu as="div" className="relative">
+    <Popover className="relative">
       {({ open }) => (
         <>
           <div>
-            <Menu.Button>
+            <Popover.Button>
               {open ? (
                 <MenuIcon className="transform rotate-90 w-7 h-7 -mb-1 text-purple-700 " />
               ) : (
                 <MenuIcon className="w-7 h-7 -mb-1 text-purple-700" />
               )}
-            </Menu.Button>
+            </Popover.Button>
           </div>
           <Transition
             as={Fragment}
@@ -60,17 +65,21 @@ const MobileMenu = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 w-screen z-50">
+            <Popover.Panel className="absolute right-0 w-screen z-50">
               {LINKS.map((link) => (
-                <NavMobileLink key={link.name} href={link.to}>
+                <Popover.Button
+                  as={NavMobileLink}
+                  key={link.name}
+                  href={link.to}
+                >
                   {link.name}
-                </NavMobileLink>
+                </Popover.Button>
               ))}
-            </Menu.Items>
+            </Popover.Panel>
           </Transition>
         </>
       )}
-    </Menu>
+    </Popover>
   )
 }
 
