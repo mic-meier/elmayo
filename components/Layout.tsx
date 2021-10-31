@@ -1,5 +1,5 @@
-import Header from './Header'
 import Meta from './Meta'
+import NavBar from './NavBar'
 
 type Props = {
   children: React.ReactNode
@@ -11,7 +11,7 @@ export default function Layout({ children, title = "El Mayo's HOME" }: Props) {
     <>
       <Meta title={title} />
       <div className="max-w-full mx-auto">
-        <Header />
+        <NavBar />
         <main className="max-w-prose mx-auto pt-4 pb-12 px-4">{children}</main>
       </div>
     </>
