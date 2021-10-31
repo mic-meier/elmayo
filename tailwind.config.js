@@ -7,7 +7,7 @@ module.exports = {
         DEFAULT: {
           css: {
             code: {
-              color: theme('colors.pink.500'),
+              color: theme('colors.purple.700'),
             },
             // code: {
             //   color: '#7fdbca',

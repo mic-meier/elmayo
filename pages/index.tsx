@@ -10,7 +10,7 @@ export default function BlogList() {
         <p>
           But while you&apos;re here, why not check out the{' '}
           <Link href="/blog">
-            <a className="text-pink-500">Blog</a>
+            <a className="text-purple-700">Blog</a>
           </Link>
         </p>
       </Layout>

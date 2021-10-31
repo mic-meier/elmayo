@@ -20,7 +20,9 @@ type LinkProps = {
 const NavLink = ({ href, children }: LinkProps) => {
   return (
     <div className="px-5 py-2">
-      <Link href={`${href}`}>{children}</Link>
+      <Link href={`${href}`}>
+        <a className="hover:text-purple-700">{children}</a>
+      </Link>
     </div>
   )
 }
@@ -31,7 +33,7 @@ const NavMobileLink = (props: LinkProps) => {
     <div className="py-2 list-none bg-white border-b border-purple-200">
       <Link href={href}>
         <a
-          className="underlined block whitespace-nowrap text-lg text-center font-medium px-5vw py-9 "
+          className="underlined block whitespace-nowrap text-lg text-center font-medium px-5vw py-9"
           {...rest}
         >
           {' '}
