@@ -2,7 +2,9 @@ import fs from 'fs'
 import { bundleMDXFile } from 'mdx-bundler'
 import { join } from 'path'
 import rehypeCodeTitles from 'rehype-code-titles'
+import rehypeKatex from 'rehype-katex'
 import rehypePrism from 'rehype-prism-plus'
+import remarkMath from 'remark-math'
 
 const POSTS_PATH = join(process.cwd(), '_posts')
 
@@ -28,7 +30,9 @@ export const getPost = async (slug: string | string[] | undefined) => {
           ...(options?.rehypePlugins ?? []),
           rehypeCodeTitles,
           rehypePrism,
+          rehypeKatex,
         ]
+        options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkMath]
         return options
       },
     }
