@@ -34,6 +34,12 @@ export default function PostPage({ code, frontmatter }: Props) {
           // href="https://unpkg.com/prism-themes@1.6.0/themes/prism-synthwave84.css"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+          integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+          crossOrigin="anonymous"
+        />
       </Head>
       <div className="mt-24">
         <h1 className="mb-0 text-5xl font-extrabold">{frontmatter.title}</h1>

@@ -1,0 +1,47 @@
+---
+slug: 'insertion-sort'
+title: 'Sorting with insertion sort'
+date: '2021-11-07'
+tagline: 'An introduction to one of the basic sorting algorithms'
+published: true
+imgUrl: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1436&q=80'
+imgAlt: 'A wooden drawer'
+---
+
+## Basics
+
+Insertion sort works similar to how most people would sort a hand of playing cards. You pick up the first card from a face-down deck of cards and put it in your left hand. Picking up the next card, you compare it, from left to right, with the cards already sorted in your left hand and insert it in its correct place. The cards in the left hand are sorted at all times.
+
+## The Algorithm
+
+**Input**: A sequence of $n$ numbers: $(a1, a2, ..., an)$
+
+**Output**: A permutation (reordering) $(a'1, a'2, ..., a'n)$ of the input sequence such that $a'1 < = a'2 < = ... < = a'n$
+
+- The numbers to sort are also known as **keys**.
+
+- The input array is sorted _in place_
+
+## Implementation in JavaScript
+
+```js
+function insertionSort(arr) {
+  for (let j = 1; j < arr.length; j++) {
+    const key = arr[j]
+    let i = j - 1
+
+    while (i >= 0 && arr[i] > key) {
+      arr[i + 1] = arr[i]
+      i = i - 1
+    }
+    arr[i + 1] = key
+  }
+  return arr
+}
+```
+
+## Running Time
+
+The running time of insertion sort is: $O(n^2)$
+
+Insertion sort is very efficient for small arrays (7 - 50) elements.
