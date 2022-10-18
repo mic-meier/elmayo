@@ -3,4 +3,5 @@ export interface IPost {
   date: string
   title: string
   tagline: string
+  categories: string[]
 }
