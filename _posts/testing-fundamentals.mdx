@@ -1,0 +1,188 @@
+---
+slug: testing-fundamentals
+title: Fundamentals of Testing in JavaScript
+date: '2022-10-22'
+tagline: Course notes for the "Fundamentals of Testing in JavaScript" module of the Testing Javascript course by Kent C. Dodds
+published: false
+imgUrl: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+imgAlt: 'Laboratory utensils'
+categories: [JavaScript, Testing]
+---
+
+## Throw an Error with a Simple Test
+
+The most fundamental form of a test in JavaScript is code that will throw an error when the result is not what you expect.
+
+```js:math.js
+export const sum = (a, b) => a + b
+export const subtract = (a, b) => a + b
+```
+
+```js:test.js
+import {sum, subtract} from './math'
+
+let result, expected
+
+result = sum(4, 8)
+expected = 12
+
+if (result !== expected) {
+  throw new Error(`${result} is not equal to ${expected}`)
+}
+
+result = subtract(8, 4)
+expected = 4
+
+if (result !== expected) {
+  throw new Error(`${result} is not equal to ${expected}`)
+}
+```
+
+This example throws an error for the subtract function as it clearly contains a bug.
+
+> The job of testing frameworks is to make the error message as useful as possible
+
+## Abstract Test Assertions Into an Assertion Library
+
+It would be nice to make the code from the previous example a bit less imperative. We can write an abstraction of the assertion in a new `expect` function.
+
+```js:assertion-library.js
+export function expect(actual) {
+  return {
+    toBe(expected) {
+      if (actual !== expected) {
+        throw new Error(`${actual} is not equal to ${expected}`)
+      }
+    },
+  }
+}
+```
+
+We can then use this function in our tests.
+
+```js:test.js
+import {expect} from './assertion-library'
+import {sum, subtract} from './math'
+
+let result
+
+result = sum(8, 4)
+expect(result).toBe(12)
+
+result = subtract(8, 4)
+expect(result).toBe(4)
+```
+
+This `expect` function acts like an assertion library. It takes an actual value and returns an object that has functions for different assertions that we can make on that actual value.
+
+We can easily expand the functionality of the `expect` function by adding more assertions.
+
+```js:assertion-library.js
+export function expect(actual) {
+  return {
+    toBe(expected) {
+      if (actual !== expected) {
+        throw new Error(`${actual} is not equal to ${expected}`)
+      }
+    },
+    toEqual(expected) {},
+    toBeGraterThan(expected) {},
+    toBeLessThan(expected) {},
+    // And so on
+  }
+}
+```
+
+## Encapsulate and Isolate Tests in a Testing Framework
+
+While the above approach makes the code much more readable it still has a few issue:
+
+- As soon as one test fails, program execution stops, meaning any remaining tests will not run
+- It's hard to pinpoint in the stack trace which test fails as the error is thrown in the assertion library
+
+To help developers identify what is broken as quickly as possible a testing framweork should
+
+- Run all the tests
+- Have helpful error messages
+
+```js:testing-framework.js
+export function test(title, callback) {
+  try {
+    callback()
+    console.log(`√ ${title}`)
+  } catch (error) {
+    console.error(`x ${title}`)
+    console.error(error)
+  }
+}
+```
+
+Our tests now look like this.
+
+```js:test.js
+import { expect } from './assertion-library'
+import { subtract, sum } from './math'
+import { test } from './testing-framework.js'
+
+test('sum adds numbers', () => {
+  const result = sum(8, 4)
+  expect(result).toBe(12)
+})
+
+test('subtract subtracts numbers', () => {
+  const result = subtract(8, 4)
+  expect(result).toBe(4)
+})
+```
+
+With a nice error message.
+
+{/*TODO add image of stacktrace*/}
+
+## Suport Async Tests with JavaScript Promises
+
+The current code works great for synchronous tests but falls apart when we want to test asynchronous functions. In order to fix this we can turn the `test` function into an `async` function and then `await` the `callback`. If the promise returned from `callback` is rejected we land in the catch block.
+
+```js:math.js
+export const sum = (a, b) => a + b
+export const subtract = (a, b) => a + b
+
+export const sumAsync = (...args) => Promise.resolve(sum(...args))
+export const subtractAsync = (...args) => Promise.resolve(subtract(...args))
+```
+
+We make the callback functions of our tests `async` und use the `await` keyword for the promise to resolve. Then we can make our assertions on the `result`.
+
+```js:test.js
+import { expect } from './assertion-library.js'
+import { subtractAsync, sumAsync } from './math.js'
+import { test } from './testing-framework.js'
+
+test('sumAsync adds numbers asynchronously', async () => {
+  const result = await sumAsync(8, 4)
+  expect(result).toBe(12)
+})
+
+test('subtractAsync subtracts numbers asynchronously', async () => {
+  const result = await subtractAsync(8, 4)
+  expect(result).toBe(4)
+})
+```
+
+Because the `callback` functions in this case are `async` functions they will return a promise. When an error is thrown, these promises are rejected. Inside the `test` function the `callback` is going to return a promise. If we turn `test` into an `async` function and then `await` that `callback`, if that promise is rejected we'll land in the catch block.
+
+If no error is thrown we'll continue inside the try block.
+
+This will work for both synchronous and asynchronous tests.
+
+```js:testing-framework.js
+export async function test(title, callback) {
+  try {
+    await callback()
+    console.log(`√ ${title}`)
+  } catch (error) {
+    console.error(`x ${title}`)
+    console.error(error)
+  }
+}
+```
