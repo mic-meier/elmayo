@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon } from '@heroicons/react/outline'
+import { Bars3Icon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { Fragment, ReactChild } from 'react'
 
@@ -52,9 +52,9 @@ const MobileMenu = () => {
           <div>
             <Popover.Button>
               {open ? (
-                <MenuIcon className="transform rotate-90 w-7 h-7 -mb-1 text-purple-700 " />
+                <Bars3Icon className="transform rotate-90 w-7 h-7 -mb-1 text-purple-700 " />
               ) : (
-                <MenuIcon className="w-7 h-7 -mb-1 text-purple-700" />
+                <Bars3Icon className="w-7 h-7 -mb-1 text-purple-700" />
               )}
             </Popover.Button>
           </div>
