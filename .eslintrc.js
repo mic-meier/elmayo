@@ -28,6 +28,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
+    'plugin:@next/next/recommended',
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
