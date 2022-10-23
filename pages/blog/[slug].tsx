@@ -4,7 +4,8 @@ import format from 'date-fns/format'
 import { getMDXComponent } from 'mdx-bundler/client'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import React from 'react'
+import Image, { ImageProps } from 'next/image'
+import React, { HTMLProps } from 'react'
 import { SITE_NAME } from 'utils/constants'
 import { getAllPostsFrontmatter, getPost } from 'utils/mdxUtils'
 
@@ -21,9 +22,18 @@ type Props = {
   }
 }
 
+function Img(props: HTMLProps<HTMLImageElement>) {
+  return (
+    <div className="-mx-4">
+      <Image {...(props as ImageProps)} layout={'responsive'} />
+    </div>
+  )
+}
+
 export default function PostPage({ code, frontmatter }: Props) {
   const Component = React.useMemo(() => getMDXComponent(code), [code])
   const formattedDate = format(new Date(frontmatter.date), 'do MMM yyyy')
+
   return (
     <Layout title={`${SITE_NAME} | BLOG | ${frontmatter.title}`}>
       <Head>
@@ -31,7 +41,6 @@ export default function PostPage({ code, frontmatter }: Props) {
 
         <link
           href="https://unpkg.com/prism-theme-night-owl@1.4.0/build/style.css"
-          // href="https://unpkg.com/prism-themes@1.6.0/themes/prism-synthwave84.css"
           rel="stylesheet"
         />
         <link
@@ -49,7 +58,7 @@ export default function PostPage({ code, frontmatter }: Props) {
         <BlogImage url={frontmatter.imgUrl} alt={frontmatter.imgAlt} />
       ) : null}
       <article className="prose mx-auto mt-12">
-        <Component />
+        <Component components={{ img: Img }} />
       </article>
     </Layout>
   )
