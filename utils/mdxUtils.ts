@@ -1,10 +1,11 @@
 import fs from 'fs'
-import { bundleMDXFile } from 'mdx-bundler'
+import { bundleMDX } from 'mdx-bundler'
 import { join } from 'path'
 import rehypeCodeTitles from 'rehype-code-titles'
 import rehypeKatex from 'rehype-katex'
 import rehypePrism from 'rehype-prism-plus'
 import remarkMath from 'remark-math'
+import imageMetaData from 'utils/image-metadata-plugin'
 
 const POSTS_PATH = join(process.cwd(), '_posts')
 
@@ -17,26 +18,32 @@ export function getPostFilePaths(): string[] {
 }
 
 export const getFrontMatter = async (path: string) => {
-  const { frontmatter } = await bundleMDXFile(path).then((data) => data)
+  const { frontmatter } = await bundleMDX({ file: path }).then((data) => data)
   return frontmatter
 }
 
 export const getPost = async (slug: string | string[] | undefined) => {
-  const { code, frontmatter } = await bundleMDXFile(
-    `${POSTS_PATH}/${slug}.mdx`,
-    {
-      xdmOptions(options) {
-        options.rehypePlugins = [
-          ...(options?.rehypePlugins ?? []),
-          rehypeCodeTitles,
-          rehypePrism,
-          rehypeKatex,
-        ]
-        options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkMath]
-        return options
-      },
-    }
-  )
+  const { code, frontmatter } = await bundleMDX({
+    file: `${POSTS_PATH}/${slug}.mdx`,
+    mdxOptions(options) {
+      options.rehypePlugins = [
+        ...(options?.rehypePlugins ?? []),
+        rehypeCodeTitles,
+        rehypePrism,
+        rehypeKatex,
+        imageMetaData,
+      ]
+      options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkMath]
+      return options
+    },
+    esbuildOptions(options) {
+      options.loader = {
+        ...options.loader,
+        '.svg': 'dataurl',
+      }
+      return options
+    },
+  })
   return { code, frontmatter }
 }
 
