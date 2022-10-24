@@ -1,14 +1,14 @@
-import { Popover, Transition } from '@headlessui/react'
-import { Bars3Icon } from '@heroicons/react/24/outline'
+import {Popover, Transition} from '@headlessui/react'
+import {Bars3Icon} from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { Fragment, ReactChild } from 'react'
+import {Fragment, ReactChild} from 'react'
 
-import { SITE_NAME } from '../utils/constants'
+import {SITE_NAME} from '../utils/constants'
 
 const LINKS = [
-  { name: 'Home', to: '/' },
-  { name: 'About', to: '/about' },
-  { name: 'Blog', to: '/blog' },
+  {name: 'Home', to: '/'},
+  {name: 'About', to: '/about'},
+  {name: 'Blog', to: '/blog'},
 ]
 
 type LinkProps = {
@@ -17,7 +17,7 @@ type LinkProps = {
   rest?: any // TODO: Figure this out
 }
 
-const NavLink = ({ href, children }: LinkProps) => {
+const NavLink = ({href, children}: LinkProps) => {
   return (
     <div className="px-5 py-2">
       <Link href={`${href}`}>
@@ -28,7 +28,7 @@ const NavLink = ({ href, children }: LinkProps) => {
 }
 
 const NavMobileLink = (props: LinkProps) => {
-  const { href, children, ...rest } = props
+  const {href, children, ...rest} = props
   return (
     <div className="py-2 list-none bg-white border-b border-purple-200">
       <Link href={href}>
@@ -47,7 +47,7 @@ const NavMobileLink = (props: LinkProps) => {
 const MobileMenu = () => {
   return (
     <Popover className="relative">
-      {({ open }) => (
+      {({open}) => (
         <>
           <div>
             <Popover.Button>

@@ -1,13 +1,5 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 2021,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
   settings: {
     react: {
       version: 'detect',
@@ -21,10 +13,9 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'eslint-config-prettier',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'plugin:prettier/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
@@ -47,13 +38,6 @@ module.exports = {
         aspects: ['invalidHref', 'preferButton'],
       },
     ],
-    'prettier/prettier': ['error'],
   },
-  plugins: [
-    '@typescript-eslint',
-    'prettier',
-    'simple-import-sort',
-    'import',
-    'react',
-  ],
+  plugins: ['@typescript-eslint', 'simple-import-sort', 'import', 'react'],
 }

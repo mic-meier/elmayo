@@ -1,13 +1,13 @@
 import BlogImage from 'components/BlogImage'
 import Layout from 'components/Layout'
 import format from 'date-fns/format'
-import { getMDXComponent } from 'mdx-bundler/client'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import {getMDXComponent} from 'mdx-bundler/client'
+import {GetStaticPaths, GetStaticProps} from 'next'
 import Head from 'next/head'
-import Image, { ImageProps } from 'next/image'
-import React, { HTMLProps } from 'react'
-import { SITE_NAME } from 'utils/constants'
-import { getAllPostsFrontmatter, getPost } from 'utils/mdxUtils'
+import Image, {ImageProps} from 'next/image'
+import React, {HTMLProps} from 'react'
+import {SITE_NAME} from 'utils/constants'
+import {getAllPostsFrontmatter, getPost} from 'utils/mdxUtils'
 
 type Props = {
   code: string
@@ -30,7 +30,7 @@ function Img(props: HTMLProps<HTMLImageElement>) {
   )
 }
 
-export default function PostPage({ code, frontmatter }: Props) {
+export default function PostPage({code, frontmatter}: Props) {
   const Component = React.useMemo(() => getMDXComponent(code), [code])
   const formattedDate = format(new Date(frontmatter.date), 'do MMM yyyy')
 
@@ -47,16 +47,16 @@ export default function PostPage({ code, frontmatter }: Props) {
         <BlogImage url={frontmatter.imgUrl} alt={frontmatter.imgAlt} />
       ) : null}
       <article className="prose mx-auto mt-12">
-        <Component components={{ img: Img }} />
+        <Component components={{img: Img}} />
       </article>
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
   const slug = params?.slug
 
-  const { code, frontmatter } = await getPost(slug)
+  const {code, frontmatter} = await getPost(slug)
 
   return {
     props: {

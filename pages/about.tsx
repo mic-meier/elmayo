@@ -1,6 +1,6 @@
 import Layout from 'components/Layout'
 import Link from 'next/link'
-import { SITE_NAME } from 'utils/constants'
+import {SITE_NAME} from 'utils/constants'
 
 export default function AboutPage() {
   return (

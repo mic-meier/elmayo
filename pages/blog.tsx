@@ -1,24 +1,24 @@
 import Layout from 'components/Layout'
 import format from 'date-fns/format'
-import { GetStaticProps } from 'next'
+import {GetStaticProps} from 'next'
 import Link from 'next/link'
-import { useState } from 'react'
-import { IPost } from 'types/post'
-import { SITE_NAME } from 'utils/constants'
-import { getAllPostsFrontmatter } from 'utils/mdxUtils'
+import {useState} from 'react'
+import {IPost} from 'types/post'
+import {SITE_NAME} from 'utils/constants'
+import {getAllPostsFrontmatter} from 'utils/mdxUtils'
 
 type Props = {
   posts: IPost[]
 }
 
-export default function BlogList({ posts }: Props) {
+export default function BlogList({posts}: Props) {
   const blogCategories = [
     ...new Set(
       posts
         .flatMap((post) => {
           return post.categories
         })
-        .filter((category) => category !== undefined)
+        .filter((category) => category !== undefined),
     ),
   ]
 
@@ -79,5 +79,5 @@ export default function BlogList({ posts }: Props) {
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPostsFrontmatter()
 
-  return { props: { posts } }
+  return {props: {posts}}
 }

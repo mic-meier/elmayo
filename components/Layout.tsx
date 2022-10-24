@@ -6,7 +6,7 @@ type Props = {
   title?: string
 }
 
-export default function Layout({ children, title = "El Mayo's HOME" }: Props) {
+export default function Layout({children, title = "El Mayo's HOME"}: Props) {
   return (
     <>
       <Meta title={title} />

@@ -1,6 +1,6 @@
 import fs from 'fs'
-import { bundleMDX } from 'mdx-bundler'
-import { join } from 'path'
+import {bundleMDX} from 'mdx-bundler'
+import {join} from 'path'
 import rehypeCodeTitles from 'rehype-code-titles'
 import rehypeKatex from 'rehype-katex'
 import rehypePrism from 'rehype-prism-plus'
@@ -18,12 +18,12 @@ export function getPostFilePaths(): string[] {
 }
 
 export const getFrontMatter = async (path: string) => {
-  const { frontmatter } = await bundleMDX({ file: path }).then((data) => data)
+  const {frontmatter} = await bundleMDX({file: path}).then((data) => data)
   return frontmatter
 }
 
 export const getPost = async (slug: string | string[] | undefined) => {
-  const { code, frontmatter } = await bundleMDX({
+  const {code, frontmatter} = await bundleMDX({
     file: `${POSTS_PATH}/${slug}.mdx`,
     mdxOptions(options) {
       options.rehypePlugins = [
@@ -44,7 +44,7 @@ export const getPost = async (slug: string | string[] | undefined) => {
       return options
     },
   })
-  return { code, frontmatter }
+  return {code, frontmatter}
 }
 
 export async function getAllPosts() {
@@ -60,7 +60,7 @@ export async function getAllPostsFrontmatter() {
         if (process.env.NODE_ENV === 'production') {
           if (fm.published) return fm
         } else if (process.env.NODE_ENV === 'development') return fm
-      }
+      },
     )
     return frontmatter
   })
