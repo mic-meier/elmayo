@@ -47,7 +47,7 @@ module.exports = {
         aspects: ['invalidHref', 'preferButton'],
       },
     ],
-    'prettier/prettier': ['error', { semi: false, singleQuote: true }],
+    'prettier/prettier': ['error'],
   },
   plugins: [
     '@typescript-eslint',
