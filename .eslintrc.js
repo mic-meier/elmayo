@@ -20,6 +20,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:@next/next/recommended',
+    'plugin:cypress/recommended',
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',

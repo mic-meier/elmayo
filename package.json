@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|json)\" --ignore-path .gitignore",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cypress": "cypress open"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
@@ -19,10 +20,9 @@
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.12",
     "date-fns": "^2.29.3",
-    "esbuild": "^0.15.12",
+    "esbuild": "0.14",
     "mdx-bundler": "^9.0.1",
     "next": "^12.3.1",
-    "next-images": "^1.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.31.1"
@@ -36,8 +36,10 @@
     "@typescript-eslint/parser": "^5.40.1",
     "a11y": "^0.5.1",
     "autoprefixer": "^10.4.12",
+    "cypress": "^10.10.0",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx": "^0.1.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
