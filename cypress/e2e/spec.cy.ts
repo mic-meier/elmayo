@@ -27,3 +27,5 @@ describe('Desktop navigation', () => {
     cy.url().should('include', '/blog')
   })
 })
+
+export {}

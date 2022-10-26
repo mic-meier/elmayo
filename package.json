@@ -9,7 +9,8 @@
     "lint": "next lint",
     "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|json)\" --ignore-path .gitignore",
     "prepare": "husky install",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "cypress:headless": "cypress run"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
