@@ -10,6 +10,7 @@ describe('Mobile navigation', () => {
     cy.get('button').click()
     cy.get('a[data-test-id="/blog-mobile"]').click()
     cy.url().should('include', '/blog')
+    cy.get('h1').should('have.text', 'Blog Posts')
   })
 })
 
@@ -25,6 +26,7 @@ describe('Desktop navigation', () => {
     cy.visit('/')
     cy.get('a[data-test-id="/blog-desktop"]').click()
     cy.url().should('include', '/blog')
+    cy.get('h1').should('have.text', 'Blog Posts')
   })
 })
 

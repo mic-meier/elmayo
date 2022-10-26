@@ -9,8 +9,8 @@ export default function AboutPage() {
         <p>Under construction. Stay tuned...</p>
         <p>
           But while you&apos;re here, why not check out the{' '}
-          <Link href="/blog">
-            <a className="text-purple-700 hover:underline">Blog</a>
+          <Link href="/blog" className="text-purple-700 hover:underline">
+            Blog
           </Link>
         </p>
       </Layout>
