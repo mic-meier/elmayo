@@ -31,7 +31,6 @@ const NavLink = ({href, children}: LinkProps) => {
 
 const NavMobileLink = (props: LinkProps) => {
   const {href, children, ...rest} = props
-  console.log(props)
   return (
     <div className="py-2 list-none bg-white border-b border-purple-200">
       <Link href={href}>
