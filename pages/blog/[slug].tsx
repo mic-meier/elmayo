@@ -25,7 +25,7 @@ type Props = {
 function Img(props: HTMLProps<HTMLImageElement>) {
   return (
     <div className="-mx-4">
-      <Image {...(props as ImageProps)} layout={'responsive'} />
+      <Image {...(props as ImageProps)} />
     </div>
   )
 }

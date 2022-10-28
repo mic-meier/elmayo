@@ -60,13 +60,11 @@ export default function BlogList({posts}: Props) {
             }
             return (
               <div key={post.slug}>
-                <h2 className="text-2xl font-bold mb-4">
-                  <Link href={`/blog/${post.slug}`}>
-                    <a>{post.title}</a>
-                  </Link>
-                </h2>
-                {formattedDate ? <div>{formattedDate}</div> : null}
-                <p>{post.tagline}</p>
+                <Link href={`/blog/${post.slug}`}>
+                  <h2 className="text-2xl font-bold mb-4">{post.title}</h2>
+                  {formattedDate ? <div>{formattedDate}</div> : null}
+                  <p>{post.tagline}</p>
+                </Link>
               </div>
             )
           }
