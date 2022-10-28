@@ -31,6 +31,7 @@ module.exports = {
     'import/first': 'error',
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': [0],
+    '@next/next/no-head-element': 'off',
     'jsx-a11y/anchor-is-valid': [
       'error',
       {

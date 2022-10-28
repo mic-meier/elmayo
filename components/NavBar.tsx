@@ -1,7 +1,7 @@
 import {Popover, Transition} from '@headlessui/react'
 import {Bars3Icon} from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import {Fragment, ReactChild} from 'react'
+import {Fragment} from 'react'
 
 import {SITE_NAME} from '../utils/constants'
 
@@ -13,7 +13,7 @@ const LINKS = [
 
 type LinkProps = {
   href: string
-  children: ReactChild
+  children: React.ReactNode
   rest?: any // TODO: Figure this out
 }
 
