@@ -9,8 +9,8 @@ export default function BlogList() {
         <p>Under construction. Stay tuned...</p>
         <p>
           But while you&apos;re here, why not check out the{' '}
-          <Link href="/blog" className="text-purple-700">
-            Blog
+          <Link href="/blog">
+            <a className="text-purple-700">Blog</a>
           </Link>
         </p>
       </Layout>

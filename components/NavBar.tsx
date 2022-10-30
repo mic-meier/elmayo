@@ -1,9 +1,14 @@
 import {Popover, Transition} from '@headlessui/react'
 import {Bars3Icon} from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import {Fragment, ReactChild} from 'react'
+import {forwardRef, Fragment} from 'react'
 
 import {SITE_NAME} from '../utils/constants'
+
+interface LinkProps {
+  href: string
+  children: React.ReactNode
+}
 
 const LINKS = [
   {name: 'Home', to: '/'},
@@ -11,42 +16,37 @@ const LINKS = [
   {name: 'Blog', to: '/blog'},
 ]
 
-type LinkProps = {
-  href: string
-  children: ReactChild
-  rest?: any // TODO: Figure this out
-}
-
 const NavLink = ({href, children}: LinkProps) => {
   return (
     <div className="px-5 py-2">
-      <Link
-        href={`${href}`}
-        data-test-id={`${href}-desktop`}
-        className="hover:text-purple-700"
-      >
-        {children}
+      <Link href={`${href}`} data-test-id={`${href}-desktop`}>
+        <a className="hover:text-purple-700">{children}</a>
       </Link>
     </div>
   )
 }
 
-const NavMobileLink = (props: LinkProps) => {
+const NavMobileLink = forwardRef((props: LinkProps, ref) => {
   const {href, children, ...rest} = props
   return (
     <div className="list-none border-b border-purple-200 bg-white py-2">
-      <Link
-        href={href}
-        data-test-id={`${href}-mobile`}
-        className="underlined px-5vw block whitespace-nowrap py-9 text-center text-lg font-medium"
-        {...rest}
-      >
-        {' '}
-        {children}
+      <Link href={href}>
+        <a
+          data-test-id={`${href}-mobile`}
+          className="underlined px-5vw block whitespace-nowrap py-9 text-center text-lg font-medium"
+          // @ts-ignore
+          ref={ref}
+          {...rest}
+        >
+          {' '}
+          {children}
+        </a>
       </Link>
     </div>
   )
-}
+})
+
+NavMobileLink.displayName = 'NavMobileLink'
 
 const MobileMenu = () => {
   return (
@@ -116,7 +116,9 @@ export default function NavBar() {
             href="/"
             className="border-b-2 border-transparent font-bold text-purple-700 transition duration-300 hover:border-purple-700"
           >
-            {SITE_NAME}
+            <a className="border-b-2 border-transparent font-bold text-purple-700 transition duration-300 hover:border-purple-700">
+              {SITE_NAME}
+            </a>
           </Link>
         </div>
         <div>
