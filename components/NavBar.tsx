@@ -20,10 +20,12 @@ type LinkProps = {
 const NavLink = ({href, children}: LinkProps) => {
   return (
     <div className="px-5 py-2">
-      <Link href={`${href}`}>
-        <a data-test-id={`${href}-desktop`} className="hover:text-purple-700">
-          {children}
-        </a>
+      <Link
+        href={`${href}`}
+        data-test-id={`${href}-desktop`}
+        className="hover:text-purple-700"
+      >
+        {children}
       </Link>
     </div>
   )
@@ -33,15 +35,14 @@ const NavMobileLink = (props: LinkProps) => {
   const {href, children, ...rest} = props
   return (
     <div className="py-2 list-none bg-white border-b border-purple-200">
-      <Link href={href}>
-        <a
-          data-test-id={`${href}-mobile`}
-          className="underlined block whitespace-nowrap text-lg text-center font-medium px-5vw py-9"
-          {...rest}
-        >
-          {' '}
-          {children}
-        </a>
+      <Link
+        href={href}
+        data-test-id={`${href}-mobile`}
+        className="underlined block whitespace-nowrap text-lg text-center font-medium px-5vw py-9"
+        {...rest}
+      >
+        {' '}
+        {children}
       </Link>
     </div>
   )
@@ -111,10 +112,11 @@ export default function NavBar() {
     <header className="pt-6 pb-2">
       <nav className="max-w-prose lg:max-w-4xl mx-auto flex px-4 items-baseline justify-between">
         <div className="pr-2 py-2 text-2xl lg:text-4xl">
-          <Link href="/">
-            <a className="font-bold text-purple-700 border-b-2 border-transparent hover:border-purple-700 transition duration-300">
-              {SITE_NAME}
-            </a>
+          <Link
+            href="/"
+            className="font-bold text-purple-700 border-b-2 border-transparent hover:border-purple-700 transition duration-300"
+          >
+            {SITE_NAME}
           </Link>
         </div>
         <div>
