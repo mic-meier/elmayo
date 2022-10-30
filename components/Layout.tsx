@@ -10,9 +10,9 @@ export default function Layout({children, title = "El Mayo's HOME"}: Props) {
   return (
     <>
       <Meta title={title} />
-      <div className="max-w-full mx-auto">
+      <div className="mx-auto max-w-full">
         <NavBar />
-        <main className="max-w-prose mx-auto pt-4 pb-12 px-4">{children}</main>
+        <main className="mx-auto max-w-prose px-4 pt-4 pb-12">{children}</main>
       </div>
     </>
   )

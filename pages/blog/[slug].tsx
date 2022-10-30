@@ -41,7 +41,7 @@ export default function PostPage({code, frontmatter}: Props) {
       </Head>
       <div className="mt-24">
         <h1 className="mb-0 text-5xl font-extrabold">{frontmatter.title}</h1>
-        <div className="text-gray-500 text-sm">{formattedDate}</div>
+        <div className="text-sm text-gray-500">{formattedDate}</div>
       </div>
       {frontmatter.imgUrl ? (
         <BlogImage url={frontmatter.imgUrl} alt={frontmatter.imgAlt} />

@@ -34,7 +34,7 @@ export default function BlogList({posts}: Props) {
 
   return (
     <Layout title={`${SITE_NAME} | BLOG`}>
-      <h1 className="text-6xl font-bold mt-12 mb-8 text-gray-800">
+      <h1 className="mt-12 mb-8 text-6xl font-bold text-gray-800">
         Blog Posts
       </h1>
       <div className="mb-12 flex flex-wrap">
@@ -42,7 +42,7 @@ export default function BlogList({posts}: Props) {
           <button
             key={category}
             onClick={() => handleFiltering(category)}
-            className={`rounded-3xl px-2 py-1 mr-2 my-1 text-gray-50 text-xs flex-none ${
+            className={`my-1 mr-2 flex-none rounded-3xl px-2 py-1 text-xs text-gray-50 ${
               category === filter ? 'bg-purple-500' : ' bg-purple-700'
             }
           `}
@@ -60,7 +60,7 @@ export default function BlogList({posts}: Props) {
             }
             return (
               <div key={post.slug}>
-                <h2 className="text-2xl font-bold mb-4">
+                <h2 className="mb-4 text-2xl font-bold">
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h2>
                 {formattedDate ? <div>{formattedDate}</div> : null}
